@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Негізгі тригонометриялық тепе-теңдіктер — тест</title>
+<style>
+:root{--ink:#1c2433;--mut:#5b6678;--rule:#cfd6e2;--bg:#eef1f6;--pri:#1f3a6b;--acc:#9b2c2c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Segoe UI",system-ui,sans-serif;padding:22px 12px}
+.card{max-width:720px;margin:0 auto;background:#fff;border:1px solid var(--rule);border-top:4px solid var(--pri);padding:26px 28px}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:700;margin:0}
+h1{font-size:15px;color:var(--mut);font-weight:400;margin-bottom:6px}
+h2{font-size:26px;line-height:1.25;color:var(--pri);margin-bottom:14px}
+dl{margin:0 0 16px;display:grid;grid-template-columns:110px 1fr;gap:4px 12px}
+dt{color:var(--mut)}dd{margin:0}
+.note{border-left:3px solid var(--acc);padding:6px 12px;margin:14px 0 20px;color:var(--ink);font-size:15px;background:#faf6f6}
+label{display:block;font-size:15px;color:var(--mut);margin:12px 0 4px}
+input[type=text],select{width:100%;font:inherit;padding:9px 10px;border:1px solid #9aa6bb;border-radius:3px;background:#fff;color:var(--ink)}
+input:focus,select:focus,button:focus-visible,.opt:focus-visible{outline:2px solid var(--pri);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button.go{margin-top:22px;font:inherit;font-weight:600;padding:10px 26px;background:var(--pri);color:#fff;border:0;border-radius:3px;cursor:pointer}
+button.go:disabled{background:#aab3c4;cursor:not-allowed}
+.top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:8px}
+.top b{font-family:Georgia,serif;font-size:19px;color:var(--pri)}
+.tm{font-variant-numeric:tabular-nums;font-size:19px}.tm.low{color:var(--acc);font-weight:700}
+.bar{height:4px;background:#e3e8f0;margin-bottom:18px}.bar i{display:block;height:100%;background:var(--pri);width:100%}
+.q{font-size:19px;margin:0 0 8px}
+.fig{display:flex;justify-content:center;margin:12px 0;border:1px solid var(--rule);padding:6px}
+.fig svg{width:100%;max-width:320px;height:auto}
+.opt{display:flex;gap:12px;padding:10px 12px;border:1px solid var(--rule);margin:8px 0;cursor:pointer;border-radius:3px}
+.opt:hover{background:#f4f7fb}.opt.on{border-color:var(--pri);background:#e8eefa;box-shadow:inset 3px 0 0 var(--pri)}
+.opt span{color:var(--mut);min-width:22px}
+.num{max-width:220px;font-size:20px}
+.res{font-family:Georgia,serif;font-size:44px;color:var(--pri);margin:8px 0}
+.modal{position:fixed;inset:0;background:rgba(20,28,45,.6);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal div{background:#fff;max-width:440px;padding:22px;border-top:4px solid var(--acc)}
+@media(max-width:520px){.card{padding:18px 16px}.row{grid-template-columns:1fr}dl{grid-template-columns:90px 1fr}}
+</style>
+</head>
+<body>
+<main class="card" id="app"></main>
+<script>
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwUECN0gv2bT-VxbO8SmuZSUgzIC17Uqq5Os4dqt0yF5Lz1lbajRFPlXQBab0nJjdEA/exec';
+const TOTAL=10,SEC=90,$=s=>document.querySelector(s);
+const M=(t,o,f)=>({t,o,f}),N=(t,n,f)=>({t,n,f});
+const D={
+1:[
+M('Төмендегі теңдіктердің қайсысы негізгі тригонометриялық тепе-теңдік болып табылады?',['sin²α + cos²α = 1','sin α + cos α = 1','sin²α − cos²α = 1','sin α · cos α = 1']),
+M('Суретте тікбұрышты үшбұрыш берілген: sin α = a/c, cos α = b/c. Пифагор теоремасы a² + b² = c² теңдігінің екі жағын c²-қа бөлгенде қандай теңдік шығады?',['sin²α + cos²α = 1','sin α + cos α = 1','sin²α − cos²α = 1','sin α = cos α'],{W:170,H:120,a:'a',b:'b',c:'c'}),
+M('Суреттегі тікбұрышты үшбұрышта sin α = 3/5. cos α неге тең?',['4/5','3/4','5/4','2/5'],{W:111,H:148,a:'3',b:'?',c:'5'}),
+M('α — сүйір бұрыш, cos α = 0,6. sin α мәнін табыңыз.',['0,8','0,4','0,6','1,6'],{W:150,H:105}),
+M('sin²α = 0,64 болса, cos²α неге тең?',['0,36','0,6','0,8','0,64']),
+M('1 − cos²α өрнегін ықшамдаңыз.',['sin²α','cos²α','1','sin α']),
+M('(sin α + cos α)² − 2 sin α cos α өрнегін ықшамдаңыз.',['1','0','2','sin²α − cos²α']),
+M('Суретте ∠C = 90°, AB = 13, BC = 5. ∠A = α үшін cos α мәнін табыңыз.',['12/13','5/13','5/12','13/12'],{W:70,H:150,a:'5',b:'?',c:'13'}),
+N('Суретте тікбұрышты үшбұрыштың гипотенузасы AB = 10, sin α = 0,6. AC катетінің ұзындығын табыңыз.',8,{W:108,H:144,b:'?',c:'10'}),
+N('(sin α + cos α)² + (sin α − cos α)² өрнегінің мәнін табыңыз.',2)
+],
+2:[
+M('Төмендегі теңдіктердің қайсысы тепе-теңдік болып табылады?',['sin²α = 1 − cos²α','sin²α = 1 + cos²α','sin²α = cos²α − 1','sin²α = 1 / cos²α']),
+M('Суретте тікбұрышты үшбұрыш берілген. Пифагор теоремасы бойынша a² + b² = c². Екі жағын c²-қа бөліп, sin α = a/c және cos α = b/c екенін ескерсек, қандай формула шығады?',['sin²α + cos²α = 1','sin α · cos α = 1','sin²α = cos²α','sin α + cos α = c'],{W:170,H:120,a:'a',b:'b',c:'c'}),
+M('Суреттегі тікбұрышты үшбұрышта sin α = 5/13. cos α неге тең?',['12/13','5/12','8/13','13/12'],{W:62,H:150,a:'5',b:'?',c:'13'}),
+M('α — сүйір бұрыш, cos α = 0,8. sin α мәнін табыңыз.',['0,6','0,2','0,8','1,8'],{W:150,H:105}),
+M('cos²α = 0,49 болса, sin²α неге тең?',['0,51','0,7','0,49','0,3']),
+M('1 − sin²α өрнегін ықшамдаңыз.',['cos²α','sin²α','1','cos α']),
+M('(1 − cos α)(1 + cos α) өрнегін ықшамдаңыз.',['sin²α','cos²α','1 − 2cos α','2 sin α']),
+M('Суретте ∠C = 90°, AB = 25, BC = 7. ∠A = α үшін cos α мәнін табыңыз.',['24/25','7/25','7/24','25/24'],{W:70,H:150,a:'7',b:'?',c:'25'}),
+N('Суретте тікбұрышты үшбұрыштың гипотенузасы AB = 15, sin α = 0,8. AC катетінің ұзындығын табыңыз.',9,{W:168,H:126,b:'?',c:'15'}),
+N('(sin α − cos α)² + 2 sin α cos α + 4 өрнегінің мәнін табыңыз.',5)
+]};
+
+function tri(f){
+ const W=f.W,H=f.H,C=[50,180],B=[50+W,180],A=[50,180-H],r=30,fi=Math.atan2(H,W),m=(Math.PI/2+fi)/2;
+ const T=(t,x,y,an,c)=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${an||'middle'}" font-family="Georgia,serif" font-style="italic" font-size="18" fill="${c||'#1c2433'}">${t}</text>`;
+ let s=`<svg viewBox="0 0 320 210" role="img" aria-label="Тікбұрышты үшбұрыш"><polygon points="${A} ${B} ${C}" fill="#e6edf8" stroke="#1f3a6b" stroke-width="2.2" stroke-linejoin="round"/>`
+ +`<path d="M${C[0]+14} ${C[1]}v-14h-14" fill="none" stroke="#1f3a6b" stroke-width="1.6"/>`
+ +`<path d="M${A[0]} ${A[1]+r}A${r} ${r} 0 0 0 ${(A[0]+r*Math.cos(fi)).toFixed(1)} ${(A[1]+r*Math.sin(fi)).toFixed(1)}" fill="none" stroke="#9b2c2c" stroke-width="2"/>`
+ +T('A',A[0]-4,A[1]-10)+T('B',B[0]+14,B[1]+14)+T('C',C[0]-14,C[1]+14)
+ +T('α',A[0]+(r+17)*Math.cos(m),A[1]+(r+17)*Math.sin(m)+6,'middle','#9b2c2c');
+ if(f.a)s+=T(f.a,(C[0]+B[0])/2,C[1]+26);
+ if(f.b)s+=T(f.b,A[0]-12,(A[1]+C[1])/2+6,'end');
+ if(f.c)s+=T(f.c,(A[0]+B[0])/2+14,(A[1]+B[1])/2-8,'start');
+ return s+'</svg>';
+}
+const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let S={};
+
+function home(){
+ $('#app').innerHTML=`<h1>Тест</h1><h2>Негізгі тригонометриялық тепе-теңдіктер</h2>
+ <dl><dt>Пән</dt><dd>Геометрия</dd><dt>Мұғалім</dt><dd>Кунгозин Даулет Багдашұлы</dd>
+ <dt>Оқу мақсаты</dt><dd>8.1.3.21 Пифагор теоремасын пайдаланып, sin²α + cos²α = 1 формуласын қорытып шығару және есептер шешуде қолдану</dd></dl>
+ <div class="note">Тест 10 сұрақтан тұрады: 8 сұрақта бір дұрыс жауапты таңдайсыз, 2 сұраққа санмен жауап енгізесіз. Әр сұраққа 1,5 минут беріледі, әр дұрыс жауап — 1 балл (барлығы 10 балл). Тест кезінде басқа қойындыға өтуге немесе терезені жиюға болмайды: әрбір әрекет тіркеледі, ал бағаңыз 1 баллға төмендейді.</div>
+ <label for="fn">Тегі, аты</label><input type="text" id="fn" autocomplete="off">
+ <div class="row"><div><label for="cl">Сынып</label><select id="cl"><option value="" selected disabled>Таңдаңыз</option><option>8Ә</option></select></div>
+ <div><label for="vr">Нұсқа</label><select id="vr"><option value="" selected disabled>Таңдаңыз</option><option value="1">1-нұсқа</option><option value="2">2-нұсқа</option></select></div></div>
+ <button class="go" id="nx" disabled>Әрі қарай</button>`;
+ const chk=()=>{$('#nx').disabled=!($('#fn').value.trim().length>=3&&$('#cl').value&&$('#vr').value)};
+ ['input','change'].forEach(e=>['#fn','#cl','#vr'].forEach(s=>$(s).addEventListener(e,chk)));
+ $('#nx').onclick=()=>begin($('#fn').value.trim(),$('#cl').value,$('#vr').value);
+}
+
+function begin(name,cls,v){
+ const qs=D[v].map(q=>{if(!q.o)return q;const ix=shuf(q.o.map((_,i)=>i));return{t:q.t,f:q.f,o:ix.map(i=>q.o[i]),a:ix.indexOf(0)}});
+ S={name,cls,v,qs,i:0,score:0,sw:0,warn:false,run:true,sel:null};
+ show();
+}
+
+function show(){
+ const q=S.qs[S.i];S.sel=null;S.end=Date.now()+SEC*1000;
+ let body=`<p class="q">${q.t}</p>`+(q.f?`<div class="fig">${tri(q.f)}</div>`:'');
+ if(q.o)body+=q.o.map((o,i)=>`<div class="opt" tabindex="0" role="radio" aria-checked="false" data-i="${i}"><span>${'абвг'[i]})</span>${o}</div>`).join('');
+ else body+=`<label for="an">Жауабы (санмен)</label><input type="text" id="an" class="num" inputmode="decimal" autocomplete="off">`;
+ $('#app').innerHTML=`<div class="top"><b>Сұрақ ${S.i+1} / ${TOTAL}</b><span class="tm" id="tm"></span></div><div class="bar"><i id="pb"></i></div>${body}
+ <button class="go" id="nx" disabled>${S.i==TOTAL-1?'Аяқтау':'Келесі'}</button>`;
+ const nx=$('#nx');
+ if(q.o)document.querySelectorAll('.opt').forEach(el=>{const pick=()=>{document.querySelectorAll('.opt').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-checked','false')});el.classList.add('on');el.setAttribute('aria-checked','true');S.sel=+el.dataset.i;nx.disabled=false};
+  el.onclick=pick;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick()}}});
+ else{const a=$('#an');a.oninput=()=>{nx.disabled=!a.value.trim()};a.onkeydown=e=>{if(e.key==='Enter'&&!nx.disabled)nx.click()};a.focus()}
+ nx.onclick=next;
+ clearInterval(S.tm);tick();S.tm=setInterval(tick,250);
+}
+
+function tick(){
+ const left=Math.max(0,S.end-Date.now()),s=Math.ceil(left/1000);
+ $('#tm').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+ $('#tm').classList.toggle('low',s<=15);
+ $('#pb').style.width=(left/(SEC*10))+'%';
+ if(left<=0)next();
+}
+
+function next(){
+ clearInterval(S.tm);
+ const q=S.qs[S.i];
+ if(q.o){if(S.sel===q.a)S.score++}
+ else{const v=parseFloat(($('#an').value||'').trim().replace(',','.'));if(!isNaN(v)&&Math.abs(v-q.n)<1e-6)S.score++}
+ if(++S.i>=TOTAL)finish();else show();
+}
+
+function finish(){
+ S.run=false;
+ const pen=S.sw>0?1:0,fin=Math.max(0,S.score-pen);
+ $('#app').innerHTML=`<h1>Тест аяқталды</h1><h2>Негізгі тригонометриялық тепе-теңдіктер</h2>
+ <dl><dt>Оқушы</dt><dd>${S.name.replace(/</g,'&lt;')}</dd><dt>Сынып</dt><dd>${S.cls}</dd><dt>Нұсқа</dt><dd>${S.v}-нұсқа</dd></dl>
+ <div class="res">${fin} / ${TOTAL}</div>
+ <p>${pen?`Тест кезінде қойындыны ауыстыру саны: ${S.sw}. Бағаңыз 1 баллға төмендетілді (${S.score} → ${fin}).`:'Қойындыны ауыстыру тіркелмеді.'}</p>
+ <p id="st" style="color:var(--mut)">Нәтиже жіберілуде…</p>`;
+ send({name:S.name,cls:S.cls,variant:S.v,score:fin,max:TOTAL,switches:S.sw,penalty:pen});
+}
+
+function send(d){
+ const st=$('#st');
+ if(SCRIPT_URL.includes('ВСТАВЬТЕ')){st.textContent='Google кестеге жіберу бапталмаған (SCRIPT_URL көрсетілмеген).';return}
+ fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)})
+ .then(()=>{st.textContent='Нәтиже мұғалімге жіберілді.'})
+ .catch(()=>{st.textContent='Нәтижені жіберу мүмкін болмады. Мұғалімге хабарлаңыз.'});
+}
+
+document.addEventListener('visibilitychange',()=>{
+ if(!S.run)return;
+ if(document.hidden){S.sw++;S.warn=true}
+ else if(S.warn){S.warn=false;
+  const m=document.createElement('div');m.className='modal';
+  m.innerHTML=`<div role="alertdialog"><h2 style="font-size:21px;color:var(--acc)">Ескерту</h2><p>Сіз тест кезінде қойындыны ауыстырдыңыз (${S.sw} рет). Тест жалғасады, бірақ бағаңыз 1 баллға төмендетіледі. Қойындыны қайта ауыстырмаңыз.</p><button class="go" style="margin-top:6px">Түсіндім</button></div>`;
+  document.body.appendChild(m);m.querySelector('button').onclick=()=>m.remove();}
+});
+home();
+</script>
+</body>
+</html>
